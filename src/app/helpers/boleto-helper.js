@@ -24,6 +24,10 @@ helper.obterValor = (codigoBarras, tipo) => {
 helper.gerarCodigoBarras = (numero, tipo) => {
   if (tipo == TIPOS_BOLETO.titulo)
     return tituloBancarioHelper.gerarCodigoBarras(numero);
+  else if (tipo == TIPOS_BOLETO.concessionaria)
+    return tituloBancarioHelper.gerarCodigoBarras(numero); // TODO: Alterar para helper de boleto de concessionaria
+  else 
+    throw "Tipo de boleto não suportado!";
 };
 
 module.exports = helper;

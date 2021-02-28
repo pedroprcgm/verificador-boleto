@@ -10,7 +10,6 @@ boleto.verificar = (numero) => {
   let codigo;
   numero = numero.replace(/[^\d]/g, "");
 
-  // Validar se são só numeros no codigo do boleto
   if (numero.length == 48) tipoBoleto = TIPOS_BOLETO.concessionaria;
   else if (numero.length == 47) tipoBoleto = TIPOS_BOLETO.titulo;
   else return new verificacaoBoleto(false);
