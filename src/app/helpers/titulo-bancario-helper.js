@@ -1,5 +1,7 @@
 const helper = {};
 const stringReplace = require("../../infra/util/string-replace");
+const calcularDVMod10 = require("../functions/calcular-DV-mod10");
+const calcularDVCodigoBarras = require("../functions/calcular-DV-codigo-barras");
 
 helper.gerarCodigoBarras = (numero) => {
 	let codigoBarras = "00000000000000000000000000000000000000000000";
@@ -52,7 +54,6 @@ handlerCampoTres = (numero, codigoBarras) => {
 
 handlerCampoQuatro = (numero, codigoBarras) => {
 	let DV = calcularDVCodigoBarras(codigoBarras);
-	console.log(DV)
 	codigoBarras = stringReplace(codigoBarras, 4, 5, DV);
 	return codigoBarras;
 };
@@ -65,47 +66,6 @@ handlerCampoCinco = (numero, codigoBarras) => {
 	codigoBarras = stringReplace(codigoBarras, 9, 19, valor);
 
 	return codigoBarras;
-};
-
-calcularDVMod10 = (campo, ordem) => {
-	let total = 0;
-	let multiplicarPor2 = ordem == 1 ? true : false;
-	for (let i = 0; i < campo.length; i++) {
-		let digito = campo[i] * (multiplicarPor2 ? 2 : 1);
-		if (digito > 9) {
-			let digitoTexto = digito.toString();
-			digito = 0;
-			for (let y = 0; y < digitoTexto.length; y++)
-				digito += parseInt(digitoTexto[y]);
-		}
-		multiplicarPor2 = !multiplicarPor2;
-		total += digito;
-	}
-	let resto = total % 10;
-	return Math.ceil(resto / 10) * 10 - resto;
-};
-
-calcularDVCodigoBarras = (codigoBarras) => {
-	// Calcular DV
-	let multiplicador = 2;
-	let total = 0;
-	codigoBarras
-		.split("")
-		.reverse()
-		.forEach((digito, index) => {
-			if (index == codigoBarras.length - 5) return;
-			if (multiplicador > 9) multiplicador = 2;
-
-			total += digito * multiplicador;
-			multiplicador++;
-		});
-
-	let resto = total % 11;
-	let DV = 11 - resto;
-
-	if (DV == 0 || DV == 10 || DV == 11) return 1;
-
-	return DV;
 };
 
 module.exports = helper;
