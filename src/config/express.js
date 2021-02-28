@@ -14,7 +14,7 @@ app.use(cors({
     .use(bodyParser.json())
     .use(boom());
     
-app.use('/api', router);
+app.use('/', router);
 
 const expressOasGenerator = require('express-oas-generator');
 expressOasGenerator.init(app, {});

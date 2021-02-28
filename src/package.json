@@ -4,7 +4,7 @@
   "description": "API REST",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "SET NODE_ENV='development' && nodemon server.js",
     "start": "node server.js",
     "start-prod": "pm2 start server.js",
@@ -27,5 +27,8 @@
     "express-boom": "^3.0.0",
     "express-oas-generator": "^1.0.23",
     "mongoose": "^5.9.20"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
   }
 }

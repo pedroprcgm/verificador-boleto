@@ -6,24 +6,24 @@ const boletoHelper = require("../app/helpers/boleto-helper");
 const boleto = {};
 
 boleto.verificar = (numero) => {
-  let tipoBoleto;
-  let codigo;
-  numero = numero.replace(/[^\d]/g, "");
+	let tipoBoleto;
+	let codigo;
+	numero = numero.replace(/[^\d]/g, "");
 
-  if (numero.length == 48) tipoBoleto = TIPOS_BOLETO.concessionaria;
-  else if (numero.length == 47) tipoBoleto = TIPOS_BOLETO.titulo;
-  else return new verificacaoBoleto(false);
+	if (numero.length == 48) tipoBoleto = TIPOS_BOLETO.concessionaria;
+	else if (numero.length == 47) tipoBoleto = TIPOS_BOLETO.titulo;
+	else return new verificacaoBoleto(false);
 
-  codigo = boletoHelper.gerarCodigoBarras(numero, tipoBoleto);
+	codigo = boletoHelper.gerarCodigoBarras(numero, tipoBoleto);
 
-  return new verificacaoBoleto(
-    true,
-    new dadosBoleto(
-      codigo,
-      boletoHelper.obterValor(codigo, tipoBoleto),
-      boletoHelper.obterDataVencimento(codigo, tipoBoleto)
-    )
-  );
+	return new verificacaoBoleto(
+		true,
+		new dadosBoleto(
+			codigo,
+			boletoHelper.obterValor(codigo, tipoBoleto),
+			boletoHelper.obterDataVencimento(codigo, tipoBoleto)
+		)
+	);
 };
 
 module.exports = boleto;
