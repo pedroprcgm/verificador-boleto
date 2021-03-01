@@ -34,7 +34,8 @@ handlerCampoUm = (numero, codigoBarras) => {
 handlerCampoDois = (numero, codigoBarras) => {
 	let campoDois = numero.substring(12, 23);
 	let DV = calcularDVMod10Atualizado(campoDois);
-
+console.log(campoDois)
+console.log(DV)
 	if (DV != numero.substring(23, 24)) throw "DV campo dois inválido!";
 
 	codigoBarras = stringReplace(codigoBarras, 11, 22, campoDois);
