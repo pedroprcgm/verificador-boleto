@@ -1,4 +1,6 @@
 const helper = {};
+const internal = {};
+
 const stringReplace = require("../../infra/util/string-replace");
 const calcularDVMod10Atualizado = require("../functions/calcular-DV-mod10-atualizado");
 const calcularDVCodigoBarras = require("../functions/calcular-DV-codigo-barras");
@@ -6,10 +8,10 @@ const calcularDVCodigoBarras = require("../functions/calcular-DV-codigo-barras")
 helper.gerarCodigoBarras = (numero) => {
 	let codigoBarras = "00000000000000000000000000000000000000000000";
 
-	codigoBarras = handlerCampoUm(numero, codigoBarras);
-	codigoBarras = handlerCampoDois(numero, codigoBarras);
-	codigoBarras = handlerCampoTres(numero, codigoBarras);
-	codigoBarras = handlerCampoQuatro(numero, codigoBarras);
+	codigoBarras = internal.handlerCampoUm(numero, codigoBarras);
+	codigoBarras = internal.handlerCampoDois(numero, codigoBarras);
+	codigoBarras = internal.handlerCampoTres(numero, codigoBarras);
+	codigoBarras = internal.handlerCampoQuatro(numero, codigoBarras);
 
 	let codigoSemDV = codigoBarras.substring(0, 3) + codigoBarras.substring(4);
 	let DVNumero = numero.substring(3, 4);
@@ -20,7 +22,7 @@ helper.gerarCodigoBarras = (numero) => {
 	return codigoBarras;
 };
 
-handlerCampoUm = (numero, codigoBarras) => {
+internal.handlerCampoUm = (numero, codigoBarras) => {
 	let campoUm = numero.substring(0, 11);
 	let DV = calcularDVMod10Atualizado(campoUm);
 
@@ -31,11 +33,10 @@ handlerCampoUm = (numero, codigoBarras) => {
 	return codigoBarras;
 };
 
-handlerCampoDois = (numero, codigoBarras) => {
+internal.handlerCampoDois = (numero, codigoBarras) => {
 	let campoDois = numero.substring(12, 23);
 	let DV = calcularDVMod10Atualizado(campoDois);
-console.log(campoDois)
-console.log(DV)
+
 	if (DV != numero.substring(23, 24)) throw "DV campo dois inválido!";
 
 	codigoBarras = stringReplace(codigoBarras, 11, 22, campoDois);
@@ -43,7 +44,7 @@ console.log(DV)
 	return codigoBarras;
 };
 
-handlerCampoTres = (numero, codigoBarras) => {
+internal.handlerCampoTres = (numero, codigoBarras) => {
 	let campoTres = numero.substring(24, 35);
 	let DV = calcularDVMod10Atualizado(campoTres);
 
@@ -54,7 +55,7 @@ handlerCampoTres = (numero, codigoBarras) => {
 	return codigoBarras;
 };
 
-handlerCampoQuatro = (numero, codigoBarras) => {
+internal.handlerCampoQuatro = (numero, codigoBarras) => {
 	let campoQuatro = numero.substring(36, 47);
 	let DV = calcularDVMod10Atualizado(campoQuatro);
 

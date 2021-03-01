@@ -1,9 +1,10 @@
+const boleto = {};
+const TIPOS_BOLETO = require("../models/tipos-boleto");
+
 const errorHandler = require("../infra/util/error-handler");
+const boletoHelper = require("../app/helpers/boleto-helper");
 const verificacaoBoleto = require("../models/verifacacao-boleto");
 const dadosBoleto = require("../models/dados-boleto");
-const TIPOS_BOLETO = require("../models/tipos-boleto");
-const boletoHelper = require("../app/helpers/boleto-helper");
-const boleto = {};
 
 boleto.verificar = (numero) => {
 	let tipoBoleto;

@@ -1,7 +1,9 @@
+const helper = {};
+
+const TIPOS_BOLETO = require("../../models/tipos-boleto");
 const tituloBancarioHelper = require("./titulo-bancario-helper");
 const concessionariaHelper = require("./pagamento-concessionaria-helper");
-const TIPOS_BOLETO = require("../../models/tipos-boleto");
-const helper = {};
+
 const dataInicial = new Date(1997, 9, 7, 12);
 
 helper.obterDataVencimento = (codigoBarras, tipo) => {
@@ -15,7 +17,7 @@ helper.obterDataVencimento = (codigoBarras, tipo) => {
 		let diaDD = codigoBarras.substring(25, 27);
 		if (mesMM < 0 || mesMM > 12 || diaDD < 0 || diaDD > 31)
 			return '';
-			
+
 		dataVencimento = new Date(anoAAAA, mesMM-1, diaDD);
 	}
 
@@ -33,7 +35,7 @@ helper.obterDataVencimento = (codigoBarras, tipo) => {
 
 helper.obterValor = (codigoBarras, tipo) => {
 	if (tipo == TIPOS_BOLETO.titulo)
-		return (codigoBarras.substring(9, 10) / 100.0).toFixed(2);
+		return (codigoBarras.substring(9, 19) / 100.0).toFixed(2);
 	else return (codigoBarras.substring(4, 15) / 100.0).toFixed(2);
 };
 
@@ -42,7 +44,6 @@ helper.gerarCodigoBarras = (numero, tipo) => {
 		return tituloBancarioHelper.gerarCodigoBarras(numero);
 	else if (tipo == TIPOS_BOLETO.concessionaria)
 		return concessionariaHelper.gerarCodigoBarras(numero);
-	// TODO: Implementar
 	else throw "Tipo de boleto não suportado!";
 };
 
