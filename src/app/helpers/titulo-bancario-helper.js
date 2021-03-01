@@ -1,6 +1,6 @@
 const helper = {};
 const stringReplace = require("../../infra/util/string-replace");
-const calcularDVMod10 = require("../functions/calcular-DV-mod10");
+const calcularDVMod10 = require("../functions/calcular-DV-mod10-titulo");
 const calcularDVCodigoBarras = require("../functions/calcular-DV-codigo-barras");
 
 helper.gerarCodigoBarras = (numero) => {

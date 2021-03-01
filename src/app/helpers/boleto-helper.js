@@ -1,4 +1,5 @@
 const tituloBancarioHelper = require("./titulo-bancario-helper");
+const concessionariaHelper = require("./pagamento-concessionaria-helper");
 const TIPOS_BOLETO = require("../../models/tipos-boleto");
 const helper = {};
 const dataInicial = new Date(1997, 9, 7, 12);
@@ -26,7 +27,7 @@ helper.gerarCodigoBarras = (numero, tipo) => {
   if (tipo == TIPOS_BOLETO.titulo)
     return tituloBancarioHelper.gerarCodigoBarras(numero);
   else if (tipo == TIPOS_BOLETO.concessionaria)
-    return ''; // TODO: Implementar
+    return concessionariaHelper.gerarCodigoBarras(numero); // TODO: Implementar
   else 
     throw "Tipo de boleto não suportado!";
 };
