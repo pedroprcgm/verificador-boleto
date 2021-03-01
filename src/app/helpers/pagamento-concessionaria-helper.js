@@ -1,6 +1,7 @@
 const helper = {};
 const stringReplace = require("../../infra/util/string-replace");
 const calcularDVMod10Atualizado = require("../functions/calcular-DV-mod10-atualizado");
+const calcularDVCodigoBarras = require("../functions/calcular-DV-codigo-barras");
 
 helper.gerarCodigoBarras = (numero) => {
 	let codigoBarras = "00000000000000000000000000000000000000000000";
@@ -9,6 +10,12 @@ helper.gerarCodigoBarras = (numero) => {
 	codigoBarras = handlerCampoDois(numero, codigoBarras);
     codigoBarras = handlerCampoTres(numero, codigoBarras);
     codigoBarras = handlerCampoQuatro(numero, codigoBarras);
+
+    let codigoSemDV = codigoBarras.substring(0, 3) + codigoBarras.substring(4);
+    let DVNumero = numero.substring(3, 4);
+    let DVGeral = calcularDVMod10Atualizado(codigoSemDV);
+
+    if (DVNumero != DVGeral) throw 'DV geral inválido!';
 
 	return codigoBarras;
 };
