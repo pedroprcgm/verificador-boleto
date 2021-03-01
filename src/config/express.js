@@ -19,6 +19,4 @@ app.use('/', router);
 const expressOasGenerator = require('express-oas-generator');
 expressOasGenerator.init(app, {});
 
-// app.use('/*', (req, res, next) => { res.boom.notFound() });
-
 module.exports = app;
